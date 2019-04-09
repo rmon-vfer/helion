@@ -10,7 +10,10 @@ from PyQt4 import QtCore, QtGui
 
 
 class CommonUtils(QtGui.QMessageBox, QtGui.QCalendarWidget, object):
-    
+    """
+    Contiene métodos y atributos comunes a todas las clases del programa
+    """
+
     BASE_PATH = os.getcwd()
     SAVES_DIR_PATH = os.path.join(BASE_PATH, "saves")
     SAVEFILE_PATH = os.path.join(SAVES_DIR_PATH, "savedData")
@@ -18,18 +21,32 @@ class CommonUtils(QtGui.QMessageBox, QtGui.QCalendarWidget, object):
         
     @staticmethod
     def textoCentrado(texto):
+        """
+        Devuelve el texto recibido envuelto en un HTML centrado
+        :param texto: texto a centrar
+        :return: texto centrado
+
+        """
         return f"""
         <html>
             <head/>
             <body>
                 <p align="center"><span style=" font-weight:400;">{texto}</span>
-                </p><
-            /body>
+                </p>
+            </body>
         </html>
         """
 
     @staticmethod
     def showMessageBox(title, text, moreInfo = "", type = QtGui.QMessageBox.Information):
+        """
+        Muestra un mensaje en una ventana de diálogo
+        :param title: Título de la ventana
+        :param text: Breve descripción (una o dos palabras) del contenido del mensaje
+        :param moreInfo: Texto de mensaje propiamente dicho
+        :param type: Tipo de mensaje, en función del tipo se mostrará un icon u otro, todos 
+                     los tipos posibles están en QtGui.QMessageBox.<TIPO_AQUI>
+        """
         msg = QtGui.QMessageBox()
         msg.setIcon(type)
         msg.setText(text)
@@ -53,7 +70,6 @@ class CommonUtils(QtGui.QMessageBox, QtGui.QCalendarWidget, object):
         """
         Obtiene el nombre de un mes a partir de su número
         """
-
         return {
             1: "Enero", 
             2: "Febrero", 
@@ -73,7 +89,6 @@ class CommonUtils(QtGui.QMessageBox, QtGui.QCalendarWidget, object):
         """
         Obtiene el nombre de un día de la semana a partir de su número
         """
-
         return {
             0 : "lunes",
             1 : "martes",

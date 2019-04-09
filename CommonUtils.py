@@ -66,6 +66,32 @@ class CommonUtils(QtGui.QMessageBox, QtGui.QCalendarWidget, object):
         return Arrow(int(year), int(month), int(day))
 
     @staticmethod
+    def siguienteMes(date):
+        stringDate = CommonUtils.arrowToString(date)
+        day, month, year = stringDate.split("/")
+        month = int(month)
+        month += 1
+
+        if month > 12:
+            nextYearMonth = month - 12 # Obtener el mes del año siguiente
+            nextYear = nextYear // 12  # El resultado será lo que hay que sumarle al año actual
+            year = int(year)
+            year += nextYear
+            month = nextYearMonth
+        
+        #TODO: Comprobar que el día sea valido en el mes y año de destino
+        
+        return Arrow(int(year), int(month), int(day))
+
+    @staticmethod
+    def siguienteSemestre(date):
+        pass
+    
+    @staticmethod
+    def siguienteAnyo(date):
+        pass
+
+    @staticmethod
     def getMonthName(monthNumber):
         """
         Obtiene el nombre de un mes a partir de su número

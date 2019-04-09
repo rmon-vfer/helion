@@ -1,11 +1,17 @@
-import pickle, sys, os, shutil
-import arrow
-from PyQt4 import QtCore, QtGui
-from PyQt4 import *
+import os
+import pickle
+import shutil
+import sys
 
-from SocratesUI.DialogGestorPersonal import Ui_Dialog as Ui_DialogGestorPersonal
+import arrow
+from PyQt4 import *
+from PyQt4 import QtCore, QtGui
+
 from CommonUtils import CommonUtils
-from windows import DialogEditorTurnos, DialogGestorPersonal, DialogPrimerInicio, DialogResSemestral, MainWindow 
+from SocratesUI.DialogGestorPersonal import \
+    Ui_Dialog as Ui_DialogGestorPersonal
+from windows import (DialogEditorTurnos, DialogGestorPersonal,
+                     DialogPrimerInicio, DialogResSemestral, MainWindow)
 
 
 class DialogGestorPersonal(QtGui.QDialog, Ui_DialogGestorPersonal, object):
@@ -134,4 +140,3 @@ class DialogGestorPersonal(QtGui.QDialog, Ui_DialogGestorPersonal, object):
         CommonUtils.showMessageBox("Guardado", "Correcto", "Los datos se han actualizado correctamente")
         CommonUtils.updateUserData(self.userData)
         self.haGuardado = True
-        

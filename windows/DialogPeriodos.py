@@ -1,12 +1,17 @@
-import pickle, sys, os, shutil
-import arrow
-from PyQt4 import QtCore, QtGui, Qt
-from PyQt4 import *
 import datetime
+import os
+import pickle
+import shutil
+import sys
 
-from SocratesUI.DialogGestorPeriodos import Ui_Dialog as Ui_DialogPeriodos
+import arrow
+from PyQt4 import *
+from PyQt4 import Qt, QtCore, QtGui
+
 from CommonUtils import CommonUtils
-from windows import DialogEditorTurnos, DialogGestorPersonal, DialogPrimerInicio, DialogResSemestral, MainWindow
+from SocratesUI.DialogGestorPeriodos import Ui_Dialog as Ui_DialogPeriodos
+from windows import (DialogEditorTurnos, DialogGestorPersonal,
+                     DialogPrimerInicio, DialogResSemestral, MainWindow)
 
 
 class DialogPeriodos(QtGui.QDialog, Ui_DialogPeriodos, object):

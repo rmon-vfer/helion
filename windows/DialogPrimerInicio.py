@@ -1,12 +1,17 @@
-import pickle, sys, os, shutil
+import os
+import pickle
+import shutil
+import sys
+
 import arrow
-from PyQt4 import QtCore, QtGui
 from PyQt4 import *
+from PyQt4 import QtCore, QtGui
 
-
-from SocratesUI.DialogInfoPrimerInicio import Ui_Dialog as Ui_DialogPrimerInicio
 from CommonUtils import CommonUtils
-from windows import DialogEditorTurnos, DialogGestorPersonal, DialogPrimerInicio, DialogResSemestral, MainWindow 
+from SocratesUI.DialogInfoPrimerInicio import \
+    Ui_Dialog as Ui_DialogPrimerInicio
+from windows import (DialogEditorTurnos, DialogGestorPersonal,
+                     DialogPrimerInicio, DialogResSemestral, MainWindow)
 
 
 class DialogPrimerInicio(QtGui.QDialog, Ui_DialogPrimerInicio, object):
@@ -23,4 +28,3 @@ class DialogPrimerInicio(QtGui.QDialog, Ui_DialogPrimerInicio, object):
         window = DialogGestorPersonal.DialogGestorPersonal(None)
         window.show()
         window.exec_()
-    

@@ -1,11 +1,16 @@
-import pickle, sys, os, shutil
-import arrow
-from PyQt4 import QtCore, QtGui
-from PyQt4 import *
+import os
+import pickle
+import shutil
+import sys
 
-from SocratesUI.DialogResumenAnual import Ui_Dialog as Ui_DialogResAnual
+import arrow
+from PyQt4 import *
+from PyQt4 import QtCore, QtGui
+
 from CommonUtils import CommonUtils
+from SocratesUI.DialogResumenAnual import Ui_Dialog as Ui_DialogResAnual
 from windows import *
+
 
 class DialogResAnual(QtGui.QDialog, Ui_DialogResAnual, object):
     

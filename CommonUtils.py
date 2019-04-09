@@ -212,23 +212,3 @@ class CommonUtils(QtGui.QMessageBox, QtGui.QCalendarWidget, object):
         """
         return date.weekday() == 5 or date.weekday() == 6
 
-    @staticmethod
-    def horasTrabajadasPorPeriodo(trabajador, periodo):
-        horasTrabajadas = trabajador["horasTrabajadas"]
-        totalHoras = 0
-
-        for periodoTrabajado in horasTrabajadas:
-            inicio = CommonUtils.stringToArrow(periodo["inicio"])
-            fin = CommonUtils.stringToArrow(periodo["final"])
-
-            fechaPeriodo = CommonUtils.stringToArrow(periodoTrabajado["fecha"])
-            esFestivo = periodoTrabajado["festivo"]
-
-            if (inicio < fechaPeriodo and fin > fechaPeriodo):
-                if esFestivo or CommonUtils.esFindeSemana(fechaPeriodo):
-                    totalHoras += 24
-                
-                else:
-                    totalHoras += 17
-        
-        return totalHoras

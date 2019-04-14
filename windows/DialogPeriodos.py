@@ -51,10 +51,10 @@ class DialogPeriodos(QtGui.QDialog, Ui_DialogPeriodos, object):
         else:
             fechaInicio = CommonUtils.siguienteAnyo(fechaInicio)
         
-        self.periodos.append({"
+        self.periodos.append({
             "inicio" : f"{CommonUtils.arrowToString(CommonUtils.qdateToArrow(fechaInicio))}",
             "tipo"   : f"{tipo}"
-        "})
+        })
 
         CommonUtils.updateUserData(self.userData)
 
@@ -87,3 +87,4 @@ class DialogPeriodos(QtGui.QDialog, Ui_DialogPeriodos, object):
         del self.userData["periodos"][rowIndex]
 
         CommonUtils.updateUserData(self.userData)
+        self.recargarTablaPeriodos()

@@ -1,3 +1,7 @@
+# Copyright Ramón Vila Ferreres
+# ramonvilafer <at> gmail.com - 2019
+# Licensed under Qt License Agreement
+
 import os
 import pickle
 import shutil
@@ -8,11 +12,8 @@ from arrow import *
 from PyQt4 import *
 from PyQt4 import QtCore, QtGui
 
-
 class CommonUtils(QtGui.QMessageBox, QtGui.QCalendarWidget, object):
-    """
-    Contiene métodos y atributos comunes a todas las clases del programa
-    """
+    """ Contiene métodos y atributos comunes a todas las clases del programa """
 
     BASE_PATH = os.getcwd()
     SAVES_DIR_PATH = os.path.join(BASE_PATH, "saves")
@@ -67,29 +68,18 @@ class CommonUtils(QtGui.QMessageBox, QtGui.QCalendarWidget, object):
 
     @staticmethod
     def siguienteMes(date):
-        stringDate = CommonUtils.arrowToString(date)
-        day, month, year = stringDate.split("/")
-        month = int(month)
-        month += 1
-
-        if month > 12:
-            nextYearMonth = month - 12 # Obtener el mes del año siguiente
-            nextYear = nextYear // 12  # El resultado será lo que hay que sumarle al año actual
-            year = int(year)
-            year += nextYear
-            month = nextYearMonth
-        
-        #TODO: Comprobar que el día sea valido en el mes y año de destino
-        
-        return Arrow(int(year), int(month), int(day))
+        tDate = CommonUtils.arrowToQdate(date).addMonths(1)
+        return CommonUtils.qdateToArrow(tDate)
 
     @staticmethod
     def siguienteSemestre(date):
-        pass
+        tDate = CommonUtils.arrowToQdate(date).addMonths(6)
+        return CommonUtils.qdateToArrow(tDate)
     
     @staticmethod
     def siguienteAnyo(date):
-        pass
+        tDate = CommonUtils.arrowToQdate(date).addYears(1)
+        return CommonUtils.qdateToArrow(tDate)
 
     @staticmethod
     def getMonthName(monthNumber):
@@ -187,7 +177,7 @@ class CommonUtils(QtGui.QMessageBox, QtGui.QCalendarWidget, object):
     @staticmethod
     def nuevoTrabajador(nombre, apellidos, turnos = []):
         """
-        Devuelve un JSON con los datos de un nuevo trabajador
+        Devuelve un Dict con los datos de un nuevo trabajador
         """
         #TODO: Documentar parametros
         return {
@@ -219,11 +209,13 @@ class CommonUtils(QtGui.QMessageBox, QtGui.QCalendarWidget, object):
 
     @staticmethod
     def arrowToString(date):
+
         """Convierte un objeto Arrow a cadena de fecha (dia/mes/año)"""
         return f"{date.day}/{date.month}/{date.year}"
 
     @staticmethod
     def initializeStorage():
+
         """Prepara el almacenamiento para poder guardar los datos de los usuarios"""
         template = {
             "trabajadores":[],
@@ -233,8 +225,15 @@ class CommonUtils(QtGui.QMessageBox, QtGui.QCalendarWidget, object):
     
     @staticmethod
     def esFindeSemana(date):
-        """
-        Comprueba si una fecha determinada es sábado o domingo
-        """
+
+        """ Comprueba si una fecha determinada es sábado o domingo """
         return date.weekday() == 5 or date.weekday() == 6
+    
+    @staticmethod
+    def qdateToArrow(qdate):
+        return Arrow(int(qdate.year()), int(qdate.month()), int(qdate.day()))
+
+    @staticmethod
+    def arrowToQdate(arrowDate):
+        return QtCore.QDate(arrowDate.year, arrowDate.month, arrowDate.day)
 

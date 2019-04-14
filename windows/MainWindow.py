@@ -1,14 +1,19 @@
-import pickle, sys, os, shutil
+import os
+import pickle
+import shutil
+import sys
+
 import arrow
-from PyQt4 import QtCore, QtGui
 from PyQt4 import *
+from PyQt4 import QtCore, QtGui
 
-from SocratesUI.MainWindowMenu import Ui_MainWindow as Ui_MainWindowMenu
 from CommonUtils import CommonUtils
+from SocratesUI.MainWindowMenu import Ui_MainWindow as Ui_MainWindowMenu
 from windows import *
-from windows import DialogResAnual, DialogResMensual, DialogResSemestral, DialogAcerca, DialogGestorPersonal, DialogPeriodos, DialogPrimerInicio
-
-
+from windows import (DialogAcerca, DialogGestorPersonal, DialogPeriodos,
+                     DialogPrimerInicio, DialogResAnual, DialogResMensual,
+                     DialogResSemestral)
+                     
 class MainWindow(QtGui.QMainWindow, Ui_MainWindowMenu, object):
 
     def __init__(self, parent = None):

@@ -1,12 +1,18 @@
-import pickle, sys, os, shutil
-from arrow import *
-from PyQt4 import QtCore, QtGui
-from PyQt4 import *
+import os
+import pickle
 import pprint
+import shutil
+import sys
 
-from SocratesUI.DialogEditorTurnosPorEmpleado import Ui_Dialog as Ui_DialogEditorTurnos
+from arrow import *
+from PyQt4 import *
+from PyQt4 import QtCore, QtGui
+
 from CommonUtils import CommonUtils
-from windows import DialogEditorTurnos, DialogGestorPersonal, DialogPrimerInicio, DialogResSemestral, MainWindow 
+from SocratesUI.DialogEditorTurnosPorEmpleado import \
+    Ui_Dialog as Ui_DialogEditorTurnos
+from windows import (DialogEditorTurnos, DialogGestorPersonal,
+                     DialogPrimerInicio, DialogResSemestral, MainWindow)
 
 
 class DialogEditorTurnos(QtGui.QDialog, Ui_DialogEditorTurnos, object):
@@ -24,6 +30,7 @@ class DialogEditorTurnos(QtGui.QDialog, Ui_DialogEditorTurnos, object):
         self.haGuardado = True
 
         self.trabajadorSeleccionado = self.userData["trabajadores"][self.index]
+        self.calendarioDia = self.dateEdit.calendarWidget()
 
         # Por defecto se carga la fecha actual
         self.diaSeleccionado = Arrow.now()
@@ -33,7 +40,6 @@ class DialogEditorTurnos(QtGui.QDialog, Ui_DialogEditorTurnos, object):
 
         self.refrescarTodo()
 
-        self.calendarioDia.clicked.connect(self.refrescarTodo)
         self.siguienteButton.clicked.connect(self.mesSiguiente)
         self.anteriorButton.clicked.connect(self.mesAnterior)
         self.addButton.clicked.connect(self.anadirTurno)
@@ -42,7 +48,9 @@ class DialogEditorTurnos(QtGui.QDialog, Ui_DialogEditorTurnos, object):
     
     def closeWindow(self):
         if self.haGuardado == False:
-            respuesta = CommonUtils.showMessageBox("Alerta", "Guardado", "Has realizado cambios pero no los has guardado, ¿Quieres guardarlos?", QtGui.QMessageBox.Warning)
+            respuesta = CommonUtils.showMessageBox("Alerta", "Guardado", 
+            "Has realizado cambios pero no los has guardado, ¿Quieres guardarlos?", 
+            QtGui.QMessageBox.Warning)
             
             if respuesta == QtGui.QMessageBox.Ok:
                 self.aplicarCambios()
@@ -52,20 +60,14 @@ class DialogEditorTurnos(QtGui.QDialog, Ui_DialogEditorTurnos, object):
             self.close()
     
     def aplicarCambios(self):
-        CommonUtils.showMessageBox("Guardado", "Correcto", "Los datos se han actualizado correctamente")
+        CommonUtils.showMessageBox("Guardado", "Correcto", 
+        "Los datos se han actualizado correctamente")
+
         CommonUtils.updateUserData(self.userData)
         self.haGuardado = True
 
     def loadData(self):
         self.userData = CommonUtils.getUserData()
-
-    def mesSiguiente(self):
-        self.calendarioDia.showNextMonth()
-        self.refrescarTodo()
-
-    def mesAnterior(self):
-        self.calendarioDia.showPreviousMonth()
-        self.refrescarTodo()
 
     def anadirTurno(self):
         fecha = self.fechaMarcadaEnCalendario()
@@ -75,8 +77,8 @@ class DialogEditorTurnos(QtGui.QDialog, Ui_DialogEditorTurnos, object):
         self.haGuardado = False
 
     def eliminarTurno(self):
-        rowIndex = self.tableWidget.currentRow()
-        self.tableWidget.removeRow(rowIndex)
+        rowIndex = self.guardiasTable.currentRow()
+        self.guardiasTable.removeRow(rowIndex)
         del self.trabajadorSeleccionado["turnos"][rowIndex]
         CommonUtils.updateUserData(self.userData)
         self.haGuardado = False
@@ -102,38 +104,24 @@ class DialogEditorTurnos(QtGui.QDialog, Ui_DialogEditorTurnos, object):
                 totalTurnosValidos += 1
                 turnosValidos.append(turno)
 
-        self.tableWidget.setRowCount(totalTurnosValidos) #? Debería cambiar el nombre xd "tableWidget"
+        self.guardiasTable.setRowCount(totalTurnosValidos) 
  
         for numeroDeTurno in range(len(turnosValidos)):
             turnoActual = turnosValidos[numeroDeTurno]
             arrowDiaActual = CommonUtils.dateTupleToArrow(turnoActual)
 
             # Establecer el Nombre y apellido
-            self.tableWidget.setItem(numeroDeTurno, 0, QtGui.QTableWidgetItem(
-                f"{CommonUtils.getWeekDayName(arrowDiaActual.weekday())} {arrowDiaActual.day}"
-                ))
+            self.guardiasTable.setItem(numeroDeTurno, 0, QtGui.QguardiasTableItem(
+                f"{CommonUtils.getWeekDayName(arrowDiaActual.weekday())} {arrowDiaActual.day}"))
 
-            self.tableWidget.setItem(numeroDeTurno, 1, QtGui.QTableWidgetItem(turnoActual[1]))
-            self.tableWidget.setItem(numeroDeTurno, 2, QtGui.QTableWidgetItem(
+            self.guardiasTable.setItem(numeroDeTurno, 1, QtGui.QguardiasTableItem(turnoActual[1]))
+            self.guardiasTable.setItem(numeroDeTurno, 2, QtGui.QguardiasTableItem(
                 CommonUtils.esFechaEspecial(arrowDiaActual)))
 
             # Ajustar el tamaño de las columnas para que quepa todo el texto
-            self.tableWidget.resizeColumnsToContents()
+            self.guardiasTable.resizeColumnsToContents()
     
-    def fechaMostradaEnCalendario(self):
-        dia = 1
-        mes = self.calendarioDia.monthShown()
-        anyo = self.calendarioDia.yearShown()
-        return Arrow(anyo, mes, dia)
-
-    def fechaMarcadaEnCalendario(self):
-        mes = self.calendarioDia.selectedDate().month()
-        dia = self.calendarioDia.selectedDate().day()
-        anyo = self.calendarioDia.selectedDate().year()
-        return Arrow(anyo, mes, dia)
 
     def refrescarTodo(self):
-        self.diaSeleccionado = self.fechaMostradaEnCalendario()
-        self.mesLabel.setText(CommonUtils.textoCentrado(f"{CommonUtils.getMonthName(self.diaSeleccionado.month)} - {self.diaSeleccionado.year}"))
+        self.diaSeleccionado = self.dateEdit.date()
         self.cargarTablaTurnos()
-

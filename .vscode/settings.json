@@ -1,3 +1,13 @@
 {
-    "python.formatting.provider": "autopep8"
+    "python.formatting.provider": "autopep8",
+    "html.suggest.angular1": false,
+    "html.suggest.ionic": false,
+    "python.linting.pylintEnabled": true,
+    "python.pythonPath": "C:\\Users\\Ramón\\AppData\\Local\\Programs\\Python\\Python37-32\\python.exe",
+    "python.linting.pep8Enabled": false,
+    "python.linting.enabled": true,
+    "python.linting.banditEnabled": false,
+    "python.linting.flake8Enabled": false,
+    "python.linting.prospectorEnabled": false,
+    "python.linting.pylamaEnabled": false
 }

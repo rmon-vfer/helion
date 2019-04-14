@@ -31,17 +31,19 @@ class DialogEditorTurnos(QtGui.QDialog, Ui_DialogEditorTurnos, object):
 
         self.trabajadorSeleccionado = self.userData["trabajadores"][self.index]
         self.calendarioDia = self.dateEdit.calendarWidget()
-
+        
         # Por defecto se carga la fecha actual
         self.diaSeleccionado = Arrow.now()
+        self.calendarioDia.setFirstDayOfWeek(QtCore.Qt.Monday)
+        self.calendarioDia.setLocale(QtCore.QLocale(QtCore.QLocale.Spanish))
+        self.calendarioDia.setSelectedDate(CommonUtils.arrowToQdate(self.diaSeleccionado))
+        self.calendarioDia.showSelectedDate()
 
         self.labelNombre.setText(self.trabajadorSeleccionado["nombre"])
         self.labelApellidos.setText(self.trabajadorSeleccionado["apellidos"])
 
         self.refrescarTodo()
 
-        self.siguienteButton.clicked.connect(self.mesSiguiente)
-        self.anteriorButton.clicked.connect(self.mesAnterior)
         self.addButton.clicked.connect(self.anadirTurno)
         self.botonOk.clicked.connect(self.closeWindow)
         self.botonAplicar.clicked.connect(self.aplicarCambios)
@@ -70,23 +72,28 @@ class DialogEditorTurnos(QtGui.QDialog, Ui_DialogEditorTurnos, object):
         self.userData = CommonUtils.getUserData()
 
     def anadirTurno(self):
-        fecha = self.fechaMarcadaEnCalendario()
+        fecha = CommonUtils.qdateToArrow(self.dateEdit.date())
         tipoTurno = self.comboTurno.currentText()
         self.nuevoTurnoATrabajador(fecha, tipoTurno)
         self.refrescarTodo()
+
         self.haGuardado = False
 
     def eliminarTurno(self):
         rowIndex = self.guardiasTable.currentRow()
         self.guardiasTable.removeRow(rowIndex)
+
         del self.trabajadorSeleccionado["turnos"][rowIndex]
         CommonUtils.updateUserData(self.userData)
+
         self.haGuardado = False
 
     def nuevoTurnoATrabajador(self, date, tipo):
         turno = (f"{date.day}/{date.month}/{date.year}", tipo)
+
         self.trabajadorSeleccionado["turnos"].append(turno)
         CommonUtils.updateUserData(self.userData)
+
         self.haGuardado = False
     
     def cargarTablaTurnos(self):
@@ -104,6 +111,7 @@ class DialogEditorTurnos(QtGui.QDialog, Ui_DialogEditorTurnos, object):
                 totalTurnosValidos += 1
                 turnosValidos.append(turno)
 
+        # Resize table
         self.guardiasTable.setRowCount(totalTurnosValidos) 
  
         for numeroDeTurno in range(len(turnosValidos)):
@@ -111,17 +119,16 @@ class DialogEditorTurnos(QtGui.QDialog, Ui_DialogEditorTurnos, object):
             arrowDiaActual = CommonUtils.dateTupleToArrow(turnoActual)
 
             # Establecer el Nombre y apellido
-            self.guardiasTable.setItem(numeroDeTurno, 0, QtGui.QguardiasTableItem(
+            self.guardiasTable.setItem(numeroDeTurno, 0, QtGui.QTableWidgetItem(
                 f"{CommonUtils.getWeekDayName(arrowDiaActual.weekday())} {arrowDiaActual.day}"))
 
-            self.guardiasTable.setItem(numeroDeTurno, 1, QtGui.QguardiasTableItem(turnoActual[1]))
-            self.guardiasTable.setItem(numeroDeTurno, 2, QtGui.QguardiasTableItem(
+            self.guardiasTable.setItem(numeroDeTurno, 1, QtGui.QTableWidgetItem(turnoActual[1]))
+            self.guardiasTable.setItem(numeroDeTurno, 2, QtGui.QTableWidgetItem(
                 CommonUtils.esFechaEspecial(arrowDiaActual)))
 
             # Ajustar el tamaño de las columnas para que quepa todo el texto
             self.guardiasTable.resizeColumnsToContents()
-    
 
     def refrescarTodo(self):
-        self.diaSeleccionado = self.dateEdit.date()
+        self.diaSeleccionado = CommonUtils.qdateToArrow(self.dateEdit.date())
         self.cargarTablaTurnos()

@@ -19,38 +19,65 @@ class DialogPeriodos(QtGui.QDialog, Ui_DialogPeriodos, object):
         QtGui.QDialog.__init__(self,parent) 
         self.setupUi(self)
         self.userData = ""
+        self.loadData()
+
+        self.haGuardado = True 
+
         self.diaSeleccionadoInicio = arrow.now()
         self.selectInicio.calendarWidget().setFirstDayOfWeek(QtCore.Qt.Monday)
         self.selectInicio.calendarWidget().setLocale(QtCore.QLocale(QtCore.QLocale.Spanish))
-        self.loadData()
+        self.calendarioDia.setSelectedDate(CommonUtils.arrowToQdate(self.diaSeleccionadoInicio))
+        self.calendarioDia.showSelectedDate()
 
+        self.botonAnadir.clicked.connect(self.anadirPeriodo)
 
     def closeWindow(self):
         self.close()
 
     def loadData(self):
         self.userData = CommonUtils.getUserData()
-        #self.recargarTablaPeriodos()
+        self.recargarTablaPeriodos()
 
-    """
+    def anadirPeriodo(self):
+        tipo = self.comboTipoPeriodo.currentText()
+        fechaInicio = self.selectInicio.date()
+
+        if tipo == "Mes":
+            fechaInicio = CommonUtils.siguienteMes(fechaInicio)
+        
+        elif tipo == "Semestre":
+            fechaInicio = CommonUtils.siguienteSemestre(fechaInicio)
+        
+        else:
+            fechaInicio = CommonUtils.siguienteAnyo(fechaInicio)
+        
+        self.periodos.append({"
+            "inicio" : f"{CommonUtils.arrowToString(CommonUtils.qdateToArrow(fechaInicio))}",
+            "tipo"   : f"{tipo}"
+        "})
+
+        CommonUtils.updateUserData(self.userData)
+
     def recargarTablaPeriodos(self):
         self.userData = CommonUtils.getUserData()
         self.periodos = self.userData["periodos"]
-        print(self.periodos)
+
         self.periodosTable.setRowCount(len(self.periodos))
         
         for periodo_index in range(len(self.periodos)):
             periodo = self.periodos[periodo_index]
+            
             inicio = periodo["inicio"]
-            fin = periodo["final"]
-            duracion = (CommonUtils.stringToArrow(fin) - CommonUtils.stringToArrow(inicio))
-            duracion = duracion.days/31
-            duracion = round(duracion, 2)
-
+            tipo = periodo["tipo"]
+            duracion = {"Mes":1, "Semestre": 6, "Año":12}[tipo]
+            fin = CommonUtils.arrowToString(CommonUtils.qdateToArrow(
+                CommonUtils.arrowToQdate(
+                CommonUtils.stringToArrow(inicio)).addMonths(duracion)))
+            
             # Establecer el inicio y final
             self.periodosTable.setItem(periodo_index, 0, QtGui.QTableWidgetItem(inicio))
             self.periodosTable.setItem(periodo_index, 1, QtGui.QTableWidgetItem(fin))
-            self.periodosTable.setItem(periodo_index, 2, QtGui.QTableWidgetItem(str(duracion)))
+            self.periodosTable.setItem(periodo_index, 2, QtGui.QTableWidgetItem(tipo))
         
         self.periodosTable.resizeColumnsToContents()
     
@@ -60,5 +87,3 @@ class DialogPeriodos(QtGui.QDialog, Ui_DialogPeriodos, object):
         del self.userData["periodos"][rowIndex]
 
         CommonUtils.updateUserData(self.userData)
-        self.recargarTablaPeriodos()
-    """

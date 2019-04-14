@@ -38,13 +38,9 @@ class DialogResSemestral(QtGui.QDialog, Ui_DialogResSemestral, object):
         for periodo_index in range(len(self.periodos)):
             periodo = self.periodos[periodo_index]
             inicio = periodo["inicio"]
-            fin = periodo["final"]
+            tipo = periodo["tipo"]
 
-            duracion = (CommonUtils.stringToArrow(fin) - CommonUtils.stringToArrow(inicio))
-            duracion = duracion.days/31
-            duracion = round(duracion, 2)
-
-            if(duracion >= 5.0 and duracion <= 7.0):
+            if(tipo == "Semestre"):
                 periodos_validos.append(periodo)
 
         self.periodos_validos = periodos_validos

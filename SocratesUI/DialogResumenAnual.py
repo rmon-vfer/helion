@@ -136,5 +136,5 @@ class Ui_Dialog(object):
         item = self.periodosTable.horizontalHeaderItem(1)
         item.setText(_translate("Dialog", "Fin", None))
         item = self.periodosTable.horizontalHeaderItem(2)
-        item.setText(_translate("Dialog", "Duración", None))
+        item.setText(_translate("Dialog", "Tipo", None))
         self.label_8.setText(_translate("Dialog", "<html><head/><body><p><span style=\" font-weight:600;\">NOTA: </span><span style=\" font-style:italic;\">Solo</span> se muestran aquellos periodos configurados con una duración de entre 11<span style=\" text-decoration: underline;\"> y 13 meses</span> inclusive</p></body></html>", None))

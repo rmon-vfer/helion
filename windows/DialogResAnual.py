@@ -37,13 +37,9 @@ class DialogResAnual(QtGui.QDialog, Ui_DialogResAnual, object):
         for periodo_index in range(len(self.periodos)):
             periodo = self.periodos[periodo_index]
             inicio = periodo["inicio"]
-            fin = periodo["final"]
+            tipo = periodo["tipo"]
 
-            duracion = (CommonUtils.stringToArrow(fin) - CommonUtils.stringToArrow(inicio))
-            duracion = duracion.days/31
-            duracion = round(duracion, 2)
-
-            if(duracion >= 0.90 and duracion <= 1.10):
+            if(tipo == "Año"):
                 periodos_validos.append(periodo)
 
         self.periodos_validos = periodos_validos
@@ -51,17 +47,18 @@ class DialogResAnual(QtGui.QDialog, Ui_DialogResAnual, object):
 
         for periodo_index in range(len(periodos_validos)):
             periodo = periodos_validos[periodo_index]
+
             inicio = periodo["inicio"]
-            fin = periodo["final"]
-
-            duracion = (CommonUtils.stringToArrow(fin) - CommonUtils.stringToArrow(inicio))
-            duracion = duracion.days/31
-            duracion = round(duracion, 2)
-
+            tipo = periodo["tipo"]
+            duracion = {"Mes":1, "Semestre": 6, "Año":12}[tipo]
+            fin = CommonUtils.arrowToString(CommonUtils.qdateToArrow(
+                CommonUtils.arrowToQdate(
+                CommonUtils.stringToArrow(inicio)).addMonths(duracion)))
+            
             # Establecer el inicio y final
             self.periodosTable.setItem(periodo_index, 0, QtGui.QTableWidgetItem(inicio))
             self.periodosTable.setItem(periodo_index, 1, QtGui.QTableWidgetItem(fin))
-            self.periodosTable.setItem(periodo_index, 2, QtGui.QTableWidgetItem(str(duracion)))
+            self.periodosTable.setItem(periodo_index, 2, QtGui.QTableWidgetItem(tipo))
         
         self.periodosTable.resizeColumnsToContents()
 

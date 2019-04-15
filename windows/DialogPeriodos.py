@@ -24,8 +24,10 @@ class DialogPeriodos(QtGui.QDialog, Ui_DialogPeriodos, object):
         self.haGuardado = True 
 
         self.diaSeleccionadoInicio = arrow.now()
-        self.selectInicio.calendarWidget().setFirstDayOfWeek(QtCore.Qt.Monday)
-        self.selectInicio.calendarWidget().setLocale(QtCore.QLocale(QtCore.QLocale.Spanish))
+        self.calendarioDia = self.selectInicio.calendarWidget()
+        
+        self.calendarioDia.setFirstDayOfWeek(QtCore.Qt.Monday)
+        self.calendarioDia.setLocale(QtCore.QLocale(QtCore.QLocale.Spanish))
         self.calendarioDia.setSelectedDate(CommonUtils.arrowToQdate(self.diaSeleccionadoInicio))
         self.calendarioDia.showSelectedDate()
 
@@ -62,7 +64,7 @@ class DialogPeriodos(QtGui.QDialog, Ui_DialogPeriodos, object):
         self.userData = CommonUtils.getUserData()
         self.periodos = self.userData["periodos"]
 
-        self.periodosTable.setRowCount(len(self.periodos))
+        self.tablaPeriodos.setRowCount(len(self.periodos))
         
         for periodo_index in range(len(self.periodos)):
             periodo = self.periodos[periodo_index]
@@ -75,15 +77,15 @@ class DialogPeriodos(QtGui.QDialog, Ui_DialogPeriodos, object):
                 CommonUtils.stringToArrow(inicio)).addMonths(duracion)))
             
             # Establecer el inicio y final
-            self.periodosTable.setItem(periodo_index, 0, QtGui.QTableWidgetItem(inicio))
-            self.periodosTable.setItem(periodo_index, 1, QtGui.QTableWidgetItem(fin))
-            self.periodosTable.setItem(periodo_index, 2, QtGui.QTableWidgetItem(tipo))
+            self.tablaPeriodos.setItem(periodo_index, 0, QtGui.QTableWidgetItem(inicio))
+            self.tablaPeriodos.setItem(periodo_index, 1, QtGui.QTableWidgetItem(fin))
+            self.tablaPeriodos.setItem(periodo_index, 2, QtGui.QTableWidgetItem(tipo))
         
-        self.periodosTable.resizeColumnsToContents()
+        self.tablaPeriodos.resizeColumnsToContents()
     
     def eliminarPeriodo(self):
-        rowIndex = self.periodosTable.currentRow()
-        self.periodosTable.removeRow(rowIndex)
+        rowIndex = self.tablaPeriodos.currentRow()
+        self.tablaPeriodos.removeRow(rowIndex)
         del self.userData["periodos"][rowIndex]
 
         CommonUtils.updateUserData(self.userData)

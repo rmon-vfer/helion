@@ -54,7 +54,7 @@ class DialogResMensual(QtGui.QDialog, Ui_DialogResMensual, object):
             fin = CommonUtils.arrowToString(CommonUtils.qdateToArrow(
                 CommonUtils.arrowToQdate(
                 CommonUtils.stringToArrow(inicio)).addMonths(duracion)))
-            
+                
             # Establecer el inicio y final
             self.periodosTable.setItem(periodo_index, 0, QtGui.QTableWidgetItem(inicio))
             self.periodosTable.setItem(periodo_index, 1, QtGui.QTableWidgetItem(fin))

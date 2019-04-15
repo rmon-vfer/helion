@@ -60,7 +60,6 @@ class Ui_Dialog(object):
         self.tablaPersonal.setHorizontalHeaderItem(0, item)
         item = QtGui.QTableWidgetItem()
         self.tablaPersonal.setHorizontalHeaderItem(1, item)
-        self.tablaPersonal.horizontalHeader().setStretchLastSection(True)
         self.tablaPersonal.verticalHeader().setVisible(False)
         self.tablaPersonal.verticalHeader().setStretchLastSection(False)
         self.groupBox_2 = QtGui.QGroupBox(Dialog)
@@ -102,7 +101,6 @@ class Ui_Dialog(object):
         self.turnosSeleccionada.horizontalHeader().setDefaultSectionSize(50)
         self.turnosSeleccionada.horizontalHeader().setHighlightSections(False)
         self.turnosSeleccionada.horizontalHeader().setMinimumSectionSize(60)
-        self.turnosSeleccionada.horizontalHeader().setStretchLastSection(True)
         self.turnosSeleccionada.verticalHeader().setStretchLastSection(False)
         self.aplicarButton = QtGui.QPushButton(Dialog)
         self.aplicarButton.setGeometry(QtCore.QRect(470, 510, 75, 23))
@@ -124,7 +122,7 @@ class Ui_Dialog(object):
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
-        Dialog.setWindowTitle(_translate("Dialog", "Gestor de personal", None))
+        Dialog.setWindowTitle(_translate("Dialog", "Personal", None))
         self.label.setText(_translate("Dialog", "Gestor de personal", None))
         self.groupBox.setTitle(_translate("Dialog", "Plantilla", None))
         item = self.tablaPersonal.horizontalHeaderItem(0)

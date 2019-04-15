@@ -65,6 +65,10 @@ class CommonUtils(QtGui.QMessageBox, QtGui.QCalendarWidget, object):
     def dateTupleToArrow(dateTuple):
         day, month, year = dateTuple[0].split("/")
         return Arrow(int(year), int(month), int(day))
+    
+    @staticmethod
+    def formatForTable(string):
+        return "{:<12}".format(string)
 
     @staticmethod
     def siguienteMes(date):
@@ -235,5 +239,14 @@ class CommonUtils(QtGui.QMessageBox, QtGui.QCalendarWidget, object):
 
     @staticmethod
     def arrowToQdate(arrowDate):
-        return QtCore.QDate(arrowDate.year, arrowDate.month, arrowDate.day)
+        # There's a weird-as-fuck bug here
+        # so I had to do some (also) weird
+        # stuff to prevent it
+        #TODO: Future me, check this out
+        
+        y = arrowDate.year
+        m = arrowDate.month
+        d = arrowDate.day
+
+        return QtCore.QDate.fromString(f"{y}-{m}-{d}", "yyyy-MM-d")
 

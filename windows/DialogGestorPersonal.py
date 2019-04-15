@@ -12,7 +12,9 @@ from SocratesUI.DialogGestorPersonal import \
     Ui_Dialog as Ui_DialogGestorPersonal
 from windows import (DialogEditorTurnos, DialogGestorPersonal,
                      DialogPrimerInicio, DialogResSemestral, MainWindow)
-
+# TODO:
+# - Actualizar las guardias de la tabla cada vez que se selecciona
+#   un mes diferente en el calendario
 
 class DialogGestorPersonal(QtGui.QDialog, Ui_DialogGestorPersonal, object):
     #TODO: Implementar edicion de datos directamente en la tabla de personal

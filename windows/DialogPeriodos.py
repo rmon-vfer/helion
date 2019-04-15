@@ -32,6 +32,7 @@ class DialogPeriodos(QtGui.QDialog, Ui_DialogPeriodos, object):
         self.calendarioDia.showSelectedDate()
 
         self.botonAnadir.clicked.connect(self.anadirPeriodo)
+        self.botonEliminar.clicked.connect(self.eliminarPeriodo)
 
     def closeWindow(self):
         self.close()
@@ -43,6 +44,7 @@ class DialogPeriodos(QtGui.QDialog, Ui_DialogPeriodos, object):
     def anadirPeriodo(self):
         tipo = self.comboTipoPeriodo.currentText()
         fechaInicio = self.selectInicio.date()
+        fechaInicio = CommonUtils.qdateToArrow(fechaInicio)
 
         if tipo == "Mes":
             fechaInicio = CommonUtils.siguienteMes(fechaInicio)
@@ -54,11 +56,12 @@ class DialogPeriodos(QtGui.QDialog, Ui_DialogPeriodos, object):
             fechaInicio = CommonUtils.siguienteAnyo(fechaInicio)
         
         self.periodos.append({
-            "inicio" : f"{CommonUtils.arrowToString(CommonUtils.qdateToArrow(fechaInicio))}",
+            "inicio" : f"{CommonUtils.arrowToString(fechaInicio)}",
             "tipo"   : f"{tipo}"
         })
 
         CommonUtils.updateUserData(self.userData)
+        self.recargarTablaPeriodos()
 
     def recargarTablaPeriodos(self):
         self.userData = CommonUtils.getUserData()
@@ -71,10 +74,7 @@ class DialogPeriodos(QtGui.QDialog, Ui_DialogPeriodos, object):
             
             inicio = periodo["inicio"]
             tipo = periodo["tipo"]
-            duracion = {"Mes":1, "Semestre": 6, "Año":12}[tipo]
-            fin = CommonUtils.arrowToString(CommonUtils.qdateToArrow(
-                CommonUtils.arrowToQdate(
-                CommonUtils.stringToArrow(inicio)).addMonths(duracion)))
+            fin = CommonUtils.arrowToString(CommonUtils.calcularFinal(inicio, tipo))
             
             # Establecer el inicio y final
             self.tablaPeriodos.setItem(periodo_index, 0, QtGui.QTableWidgetItem(inicio))
@@ -90,3 +90,5 @@ class DialogPeriodos(QtGui.QDialog, Ui_DialogPeriodos, object):
 
         CommonUtils.updateUserData(self.userData)
         self.recargarTablaPeriodos()
+
+        self.haGuardado = False

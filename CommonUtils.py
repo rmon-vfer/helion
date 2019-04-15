@@ -6,9 +6,10 @@ import os
 import pickle
 import shutil
 import sys
-
 import holidays
-from arrow import *
+import arrow
+
+from arrow import Arrow
 from PyQt4 import *
 from PyQt4 import QtCore, QtGui
 
@@ -63,8 +64,8 @@ class CommonUtils(QtGui.QMessageBox, QtGui.QCalendarWidget, object):
 
     @staticmethod
     def dateTupleToArrow(dateTuple):
-        day, month, year = dateTuple[0].split("/")
-        return Arrow(int(year), int(month), int(day))
+        return CommonUtils.stringToArrow(dateTuple[0])
+
     
     @staticmethod
     def formatForTable(string):
@@ -72,24 +73,22 @@ class CommonUtils(QtGui.QMessageBox, QtGui.QCalendarWidget, object):
 
     @staticmethod
     def siguienteMes(date):
-        tDate = CommonUtils.arrowToQdate(date).addMonths(1)
-        return CommonUtils.qdateToArrow(tDate)
+        date = date.shift(months=1)
+        return date.date()
 
     @staticmethod
     def siguienteSemestre(date):
-        tDate = CommonUtils.arrowToQdate(date).addMonths(6)
-        return CommonUtils.qdateToArrow(tDate)
+        date = date.shift(months=6)
+        return date.date()
     
     @staticmethod
     def siguienteAnyo(date):
-        tDate = CommonUtils.arrowToQdate(date).addYears(1)
-        return CommonUtils.qdateToArrow(tDate)
+        date = date.shift(years=1)
+        return date.date()
 
     @staticmethod
     def getMonthName(monthNumber):
-        """
-        Obtiene el nombre de un mes a partir de su número
-        """
+        """ Obtiene el nombre de un mes a partir de su número """
         return {
             1: "Enero", 
             2: "Febrero", 
@@ -106,9 +105,7 @@ class CommonUtils(QtGui.QMessageBox, QtGui.QCalendarWidget, object):
 
     @staticmethod
     def getWeekDayName(dayNumber):
-        """
-        Obtiene el nombre de un día de la semana a partir de su número
-        """
+        """ Obtiene el nombre de un día de la semana a partir de su número """
         return {
             0 : "lunes",
             1 : "martes",
@@ -196,9 +193,7 @@ class CommonUtils(QtGui.QMessageBox, QtGui.QCalendarWidget, object):
         """
         Convierte una cadena de fecha (dia/mes/año) a un objeto Arrow
         """
-
-        dia, mes, anyo = dateString.split("/")
-        return Arrow(int(anyo), int(mes), int(dia))
+        return arrow.get(dateString, "D/M/YYYY")
     
     @staticmethod
     def anadirDiaTrabajado(trabajador, date, tipo):
@@ -229,7 +224,6 @@ class CommonUtils(QtGui.QMessageBox, QtGui.QCalendarWidget, object):
     
     @staticmethod
     def esFindeSemana(date):
-
         """ Comprueba si una fecha determinada es sábado o domingo """
         return date.weekday() == 5 or date.weekday() == 6
     
@@ -239,14 +233,13 @@ class CommonUtils(QtGui.QMessageBox, QtGui.QCalendarWidget, object):
 
     @staticmethod
     def arrowToQdate(arrowDate):
-        # There's a weird-as-fuck bug here
-        # so I had to do some (also) weird
-        # stuff to prevent it
-        #TODO: Future me, check this out
+        return QtCore.QDate.fromString(arrowDate.format("YYYY-M-D"), "yyyy-MM-d")
+
+    @staticmethod
+    def calcularFinal(inicio, tipo_periodo):
+        duracion = {"Mes":1, "Semestre": 6, "Año":12}[tipo]
+        fin = CommonUtils.qdateToArrow(
+            CommonUtils.arrowToQdate(
+            CommonUtils.stringToArrow(inicio)).addMonths(duracion))
         
-        y = arrowDate.year
-        m = arrowDate.month
-        d = arrowDate.day
-
-        return QtCore.QDate.fromString(f"{y}-{m}-{d}", "yyyy-MM-d")
-
+        return fin 

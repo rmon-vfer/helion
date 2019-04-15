@@ -65,6 +65,7 @@ class DialogResMensual(QtGui.QDialog, Ui_DialogResMensual, object):
     def mostrarTrabajadoresEnPeriodo(self):
         periodoSeleccionado = self.periodos_validos[self.periodosTable.currentRow()]
         inicio = CommonUtils.stringToArrow(periodoSeleccionado["inicio"])
+        
         final = CommonUtils.stringToArrow(periodoSeleccionado["final"])
 
         numTrabajadoresValidos = 0

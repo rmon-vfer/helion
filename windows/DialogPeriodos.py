@@ -77,9 +77,9 @@ class DialogPeriodos(QtGui.QDialog, Ui_DialogPeriodos, object):
             fin = CommonUtils.arrowToString(CommonUtils.calcularFinal(inicio, tipo))
             
             # Establecer el inicio y final
-            self.tablaPeriodos.setItem(periodo_index, 0, QtGui.QTableWidgetItem(inicio))
-            self.tablaPeriodos.setItem(periodo_index, 1, QtGui.QTableWidgetItem(fin))
-            self.tablaPeriodos.setItem(periodo_index, 2, QtGui.QTableWidgetItem(tipo))
+            self.tablaPeriodos.setItem(periodo_index, 0, QtGui.QTableWidgetItem(CommonUtils.formatForTable(inicio)))
+            self.tablaPeriodos.setItem(periodo_index, 1, QtGui.QTableWidgetItem(CommonUtils.formatForTable(fin)))
+            self.tablaPeriodos.setItem(periodo_index, 2, QtGui.QTableWidgetItem(CommonUtils.formatForTable(tipo)))
         
         self.tablaPeriodos.resizeColumnsToContents()
     

@@ -69,7 +69,8 @@ class CommonUtils(QtGui.QMessageBox, QtGui.QCalendarWidget, object):
     
     @staticmethod
     def formatForTable(string):
-        return "{:<12}".format(string)
+        longitud = len(string) + 10
+        return "{:<18}".format(string)
 
     @staticmethod
     def siguienteMes(date):
@@ -193,7 +194,11 @@ class CommonUtils(QtGui.QMessageBox, QtGui.QCalendarWidget, object):
         """
         Convierte una cadena de fecha (dia/mes/año) a un objeto Arrow
         """
-        return arrow.get(dateString, "D/M/YYYY")
+        if (type(dateString) == Arrow): 
+            return dateString
+        else:
+            dia, mes, anyo = dateString.split("/")
+            return Arrow(int(anyo), int(mes), int(dia))
     
     @staticmethod
     def anadirDiaTrabajado(trabajador, date, tipo):
@@ -236,10 +241,13 @@ class CommonUtils(QtGui.QMessageBox, QtGui.QCalendarWidget, object):
         return QtCore.QDate.fromString(arrowDate.format("YYYY-M-D"), "yyyy-MM-d")
 
     @staticmethod
-    def calcularFinal(inicio, tipo_periodo):
+    def calcularFinal(inicio, tipo):
         duracion = {"Mes":1, "Semestre": 6, "Año":12}[tipo]
-        fin = CommonUtils.qdateToArrow(
-            CommonUtils.arrowToQdate(
-            CommonUtils.stringToArrow(inicio)).addMonths(duracion))
-        
+
+        fin = CommonUtils.stringToArrow(inicio)
+        if duracion <= 6:
+            fin = fin.shift(months = duracion)
+        else:
+            fin = fin.shift(years = 1)
+
         return fin 

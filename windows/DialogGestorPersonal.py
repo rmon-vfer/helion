@@ -81,8 +81,8 @@ class DialogGestorPersonal(QtGui.QDialog, Ui_DialogGestorPersonal, object):
             trabajador = self.trabajadores[trabajador_index]
 
             # Establecer el Nombre y apellido
-            self.tablaPersonal.setItem(trabajador_index, 0, QtGui.QTableWidgetItem(trabajador["nombre"]))
-            self.tablaPersonal.setItem(trabajador_index, 1, QtGui.QTableWidgetItem(trabajador["apellidos"]))
+            self.tablaPersonal.setItem(trabajador_index, 0, QtGui.QTableWidgetItem(CommonUtils.formatForTable(trabajador["nombre"])))
+            self.tablaPersonal.setItem(trabajador_index, 1, QtGui.QTableWidgetItem(CommonUtils.formatForTable(trabajador["apellidos"])))
         
         self.tablaPersonal.resizeColumnsToContents()
 
@@ -98,11 +98,11 @@ class DialogGestorPersonal(QtGui.QDialog, Ui_DialogGestorPersonal, object):
             turnoActual = turnosSeleccionados[turno_index]
 
             # Establecer el Nombre y apellido
-            self.turnosSeleccionada.setItem(turno_index, 0, QtGui.QTableWidgetItem(turnoActual[0]))
-            self.turnosSeleccionada.setItem(turno_index, 1, QtGui.QTableWidgetItem(turnoActual[1]))
+            self.turnosSeleccionada.setItem(turno_index, 0, QtGui.QTableWidgetItem(CommonUtils.formatForTable(turnoActual[0])))
+            self.turnosSeleccionada.setItem(turno_index, 1, QtGui.QTableWidgetItem(CommonUtils.formatForTable(turnoActual[1])))
             self.turnosSeleccionada.setItem(turno_index, 2, QtGui.QTableWidgetItem(
-                CommonUtils.esFechaEspecial(CommonUtils.stringToArrow(turnoActual[0]))
-            ))
+                CommonUtils.formatForTable(CommonUtils.esFechaEspecial(CommonUtils.stringToArrow(turnoActual[0]))
+            )))
 
         self.turnosSeleccionada.resizeColumnsToContents()
 

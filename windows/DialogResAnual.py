@@ -42,30 +42,29 @@ class DialogResAnual(QtGui.QDialog, Ui_DialogResAnual, object):
             if(tipo == "Año"):
                 periodos_validos.append(periodo)
 
+
         self.periodos_validos = periodos_validos
         self.periodosTable.setRowCount(len(periodos_validos))
 
         for periodo_index in range(len(periodos_validos)):
             periodo = periodos_validos[periodo_index]
-
+                        
             inicio = periodo["inicio"]
             tipo = periodo["tipo"]
-            duracion = {"Mes":1, "Semestre": 6, "Año":12}[tipo]
-            fin = CommonUtils.arrowToString(CommonUtils.qdateToArrow(
-                CommonUtils.arrowToQdate(
-                CommonUtils.stringToArrow(inicio)).addMonths(duracion)))
-            
+            fin = CommonUtils.arrowToString(CommonUtils.calcularFinal(inicio, tipo))
+                
             # Establecer el inicio y final
-            self.periodosTable.setItem(periodo_index, 0, QtGui.QTableWidgetItem(inicio))
-            self.periodosTable.setItem(periodo_index, 1, QtGui.QTableWidgetItem(fin))
-            self.periodosTable.setItem(periodo_index, 2, QtGui.QTableWidgetItem(tipo))
+            self.periodosTable.setItem(periodo_index, 0, QtGui.QTableWidgetItem(CommonUtils.formatForTable(inicio)))
+            self.periodosTable.setItem(periodo_index, 1, QtGui.QTableWidgetItem(CommonUtils.formatForTable(fin)))
+            self.periodosTable.setItem(periodo_index, 2, QtGui.QTableWidgetItem(CommonUtils.formatForTable(tipo)))
         
         self.periodosTable.resizeColumnsToContents()
 
     def mostrarTrabajadoresEnPeriodo(self):
         periodoSeleccionado = self.periodos_validos[self.periodosTable.currentRow()]
         inicio = CommonUtils.stringToArrow(periodoSeleccionado["inicio"])
-        final = CommonUtils.stringToArrow(periodoSeleccionado["final"])
+        tipo = periodoSeleccionado["tipo"]
+        final = CommonUtils.arrowToString(CommonUtils.calcularFinal(inicio, tipo))
 
         numTrabajadoresValidos = 0
 
@@ -84,10 +83,12 @@ class DialogResAnual(QtGui.QDialog, Ui_DialogResAnual, object):
             for guardia in trabajador["turnos"]:
 
                 fechaGuardia = CommonUtils.stringToArrow(guardia[0])
+                final = CommonUtils.stringToArrow(final)
                 tipoGuardia = guardia[1]
 
                 # Si la guardia está en el periodo seleccionado, entonces
                 # añadirla a la lista de guardias válidas
+
                 if fechaGuardia >= inicio and fechaGuardia <= final:
                     print("La guardia esta en el periodo selecionado")
                     guardiasEnPeriodo.append(guardia)
@@ -99,17 +100,15 @@ class DialogResAnual(QtGui.QDialog, Ui_DialogResAnual, object):
 
             horasTotales = horasLectivas + horasEspeciales
             
-            print("Mostrando datos...")
-
             # Mostrar al empleado solo si ha realizado guardias en el periodo
             # seleccionado
-            if horasTotales > 0 or (nombre.strip() == "" or apellidos.strip() == "" ):
+            if horasTotales > 0 or nombre.strip() == "":
                 
                 numTrabajadoresValidos += 1
 
                 self.resultsTable.setRowCount(numTrabajadoresValidos)
-                self.resultsTable.setItem(numTrabajadoresValidos -1, 0, QtGui.QTableWidgetItem(nombre))
-                self.resultsTable.setItem(numTrabajadoresValidos -1, 1, QtGui.QTableWidgetItem(apellidos))
-                self.resultsTable.setItem(numTrabajadoresValidos -1, 2, QtGui.QTableWidgetItem(str(horasLectivas)))
-                self.resultsTable.setItem(numTrabajadoresValidos -1, 3, QtGui.QTableWidgetItem(str(horasEspeciales)))
-                self.resultsTable.setItem(numTrabajadoresValidos -1, 4, QtGui.QTableWidgetItem(str(horasTotales)))
+                self.resultsTable.setItem(numTrabajadoresValidos -1, 0, QtGui.QTableWidgetItem(CommonUtils.formatForTable(nombre)))
+                self.resultsTable.setItem(numTrabajadoresValidos -1, 1, QtGui.QTableWidgetItem(CommonUtils.formatForTable(apellidos)))
+                self.resultsTable.setItem(numTrabajadoresValidos -1, 2, QtGui.QTableWidgetItem(CommonUtils.formatForTable(str(horasLectivas))))
+                self.resultsTable.setItem(numTrabajadoresValidos -1, 3, QtGui.QTableWidgetItem(CommonUtils.formatForTable(str(horasEspeciales))))
+                self.resultsTable.setItem(numTrabajadoresValidos -1, 4, QtGui.QTableWidgetItem(CommonUtils.formatForTable(str(horasTotales))))

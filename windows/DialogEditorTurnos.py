@@ -47,6 +47,7 @@ class DialogEditorTurnos(QtGui.QDialog, Ui_DialogEditorTurnos, object):
         self.addButton.clicked.connect(self.anadirTurno)
         self.botonOk.clicked.connect(self.closeWindow)
         self.botonAplicar.clicked.connect(self.aplicarCambios)
+        self.calendarioDia.clicked.connect(self.refrescarTodo)
     
     def closeWindow(self):
         if self.haGuardado == False:
@@ -120,15 +121,15 @@ class DialogEditorTurnos(QtGui.QDialog, Ui_DialogEditorTurnos, object):
 
             # Establecer el Nombre y apellido
             self.guardiasTable.setItem(numeroDeTurno, 0, QtGui.QTableWidgetItem(
-                f"{CommonUtils.getWeekDayName(arrowDiaActual.weekday())} {arrowDiaActual.day}"))
+                CommonUtils.formatForTable(f"{CommonUtils.getWeekDayName(arrowDiaActual.weekday())} {arrowDiaActual.day}")))
 
-            self.guardiasTable.setItem(numeroDeTurno, 1, QtGui.QTableWidgetItem(turnoActual[1]))
+            self.guardiasTable.setItem(numeroDeTurno, 1, QtGui.QTableWidgetItem(CommonUtils.formatForTable(turnoActual[1])))
             self.guardiasTable.setItem(numeroDeTurno, 2, QtGui.QTableWidgetItem(
-                CommonUtils.esFechaEspecial(arrowDiaActual)))
+                CommonUtils.formatForTable(CommonUtils.esFechaEspecial(arrowDiaActual))))
 
             # Ajustar el tamaño de las columnas para que quepa todo el texto
             self.guardiasTable.resizeColumnsToContents()
 
     def refrescarTodo(self):
-        self.diaSeleccionado = CommonUtils.qdateToArrow(self.dateEdit.date())
+        self.diaSeleccionado = CommonUtils.qdateToArrow(self.calendarioDia.selectedDate())
         self.cargarTablaTurnos()

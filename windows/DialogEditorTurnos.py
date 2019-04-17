@@ -18,12 +18,11 @@ from windows import (DialogEditorTurnos, DialogGestorPersonal,
 class DialogEditorTurnos(QtGui.QDialog, Ui_DialogEditorTurnos, object):
    
     def __init__(self, selectedIndex, parent = None):
-        # TODO: incluir un boton para volver al dia actual
 
         QtGui.QDialog.__init__(self,parent) 
         self.setupUi(self)
+        
         self.userData = ""
-
         self.index = selectedIndex
 
         self.loadData()

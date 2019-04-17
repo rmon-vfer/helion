@@ -18,6 +18,7 @@ class DialogPeriodos(QtGui.QDialog, Ui_DialogPeriodos, object):
     def __init__(self, parent = None):
         QtGui.QDialog.__init__(self,parent) 
         self.setupUi(self)
+
         self.userData = ""
         self.loadData()
 

@@ -27,7 +27,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>:/icons/graphics/icon.ico</normaloff>:/icons/graphics/icon.ico</iconset>
+    <normaloff>graphics/icon.png</normaloff>graphics/icon.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label">
@@ -187,7 +187,7 @@
   </widget>
  </widget>
  <resources>
-  <include location="../main.qrc"/>
+  <include location="../graphics/graphics.qrc"/>
  </resources>
  <connections/>
 </ui>

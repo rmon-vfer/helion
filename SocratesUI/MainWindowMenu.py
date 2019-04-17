@@ -29,7 +29,7 @@ class Ui_MainWindow(object):
         MainWindow.setMinimumSize(QtCore.QSize(329, 261))
         MainWindow.setMaximumSize(QtCore.QSize(329, 261))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/icons/graphics/icon.ico")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8("graphics/icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
@@ -91,3 +91,4 @@ class Ui_MainWindow(object):
         self.resMensual.setText(_translate("MainWindow", "Mensual", None))
         self.resSemestral.setText(_translate("MainWindow", "Semestral", None))
         self.resAnual.setText(_translate("MainWindow", "Anual", None))
+

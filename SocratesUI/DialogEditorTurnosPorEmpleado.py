@@ -29,6 +29,9 @@ class Ui_Dialog(object):
         Dialog.setMinimumSize(QtCore.QSize(588, 381))
         Dialog.setMaximumSize(QtCore.QSize(588, 381))
         Dialog.setAcceptDrops(False)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8("graphics/icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        Dialog.setWindowIcon(icon)
         self.label_5 = QtGui.QLabel(Dialog)
         self.label_5.setGeometry(QtCore.QRect(10, 10, 101, 21))
         font = QtGui.QFont()
@@ -149,3 +152,4 @@ class Ui_Dialog(object):
         self.comboTurno.setItemText(1, _translate("Dialog", "B", None))
         self.label_4.setText(_translate("Dialog", "Día", None))
         self.label_6.setText(_translate("Dialog", "Tipo", None))
+

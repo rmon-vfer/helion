@@ -29,7 +29,7 @@ class Ui_Dialog(object):
         Dialog.setMinimumSize(QtCore.QSize(500, 273))
         Dialog.setMaximumSize(QtCore.QSize(500, 273))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/newPrefix/icon.ico")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8("graphics/icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Dialog.setWindowIcon(icon)
         self.label = QtGui.QLabel(Dialog)
         self.label.setGeometry(QtCore.QRect(10, 10, 221, 31))
@@ -63,3 +63,4 @@ class Ui_Dialog(object):
         self.label.setText(_translate("Dialog", "Configuración inicial", None))
         self.label_2.setText(_translate("Dialog", "<html><head/><body><p align=\"justify\">¡Bienvenido/a a GGuard!</p><p align=\"justify\">Para poder utilizar todas las características de GGuard, antes es necesario que añadas los datos de los trabajadores así como las guardias correspondientes a cada uno a la base de datos del programa. Después tendrás que añadir los periodos (mes, semestre o año) en los que quieres que se contabilicen las distintas guardias, de esa manera, lo único que tendrás que hacer es consultar los resúmenes y modificar las guardias del personal.</p></body></html>", None))
         self.continuarB.setText(_translate("Dialog", "Continuar", None))
+

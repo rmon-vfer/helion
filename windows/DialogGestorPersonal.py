@@ -112,7 +112,7 @@ class DialogGestorPersonal(QtGui.QDialog, Ui_DialogGestorPersonal, object):
         
         # Controlar nombres y apellidos vacios
         #TODO: Cambiar por un regex
-        if str(nombre).strip() == "" or str(apellidos).strip() == "":
+        if str(nombre).strip() == "":
             CommonUtils.showMessageBox(
                 "Error", "Campo vacio", "Compruebe que haya escrito correctamente el nombre y los apellidos",
                 QtGui.QMessageBox.Warning)

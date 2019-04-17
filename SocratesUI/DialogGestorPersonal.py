@@ -29,7 +29,7 @@ class Ui_Dialog(object):
         Dialog.setMinimumSize(QtCore.QSize(569, 548))
         Dialog.setMaximumSize(QtCore.QSize(569, 548))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/newPrefix/icon.ico")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8("graphics/icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Dialog.setWindowIcon(icon)
         self.label = QtGui.QLabel(Dialog)
         self.label.setGeometry(QtCore.QRect(10, 10, 261, 31))
@@ -60,6 +60,7 @@ class Ui_Dialog(object):
         self.tablaPersonal.setHorizontalHeaderItem(0, item)
         item = QtGui.QTableWidgetItem()
         self.tablaPersonal.setHorizontalHeaderItem(1, item)
+        self.tablaPersonal.horizontalHeader().setStretchLastSection(True)
         self.tablaPersonal.verticalHeader().setVisible(False)
         self.tablaPersonal.verticalHeader().setStretchLastSection(False)
         self.groupBox_2 = QtGui.QGroupBox(Dialog)
@@ -101,6 +102,7 @@ class Ui_Dialog(object):
         self.turnosSeleccionada.horizontalHeader().setDefaultSectionSize(50)
         self.turnosSeleccionada.horizontalHeader().setHighlightSections(False)
         self.turnosSeleccionada.horizontalHeader().setMinimumSectionSize(60)
+        self.turnosSeleccionada.horizontalHeader().setStretchLastSection(True)
         self.turnosSeleccionada.verticalHeader().setStretchLastSection(False)
         self.aplicarButton = QtGui.QPushButton(Dialog)
         self.aplicarButton.setGeometry(QtCore.QRect(470, 510, 75, 23))
@@ -122,7 +124,7 @@ class Ui_Dialog(object):
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
-        Dialog.setWindowTitle(_translate("Dialog", "Personal", None))
+        Dialog.setWindowTitle(_translate("Dialog", "Gestor de personal", None))
         self.label.setText(_translate("Dialog", "Gestor de personal", None))
         self.groupBox.setTitle(_translate("Dialog", "Plantilla", None))
         item = self.tablaPersonal.horizontalHeaderItem(0)
@@ -145,3 +147,4 @@ class Ui_Dialog(object):
         self.groupBox_4.setTitle(_translate("Dialog", "Trabajador/a", None))
         self.eliminarButton.setText(_translate("Dialog", "Eliminar", None))
         self.configTurnosNuevo.setText(_translate("Dialog", "Modificar turnos", None))
+

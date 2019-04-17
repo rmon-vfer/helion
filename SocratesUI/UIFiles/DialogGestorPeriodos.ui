@@ -34,6 +34,10 @@
   <property name="windowTitle">
    <string>Periodos</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>graphics/icon.png</normaloff>graphics/icon.png</iconset>
+  </property>
   <property name="autoFillBackground">
    <bool>false</bool>
   </property>
@@ -212,16 +216,6 @@
      <bool>true</bool>
     </property>
    </widget>
-   <zorder>selectInicio</zorder>
-   <zorder>label_4</zorder>
-   <zorder>label_3</zorder>
-   <zorder>comboTipoPeriodo</zorder>
-   <zorder>botonAnadir</zorder>
-   <zorder>botonAnadir</zorder>
-   <zorder>label_4</zorder>
-   <zorder>comboTipoPeriodo</zorder>
-   <zorder>label_3</zorder>
-   <zorder>selectInicio</zorder>
   </widget>
   <widget class="QPushButton" name="botonAceptar">
    <property name="geometry">
@@ -300,7 +294,9 @@
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../graphics/graphics.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>botonAceptar</sender>

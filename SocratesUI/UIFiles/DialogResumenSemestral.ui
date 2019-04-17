@@ -33,7 +33,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>:/icons/graphics/icon.ico</normaloff>:/icons/graphics/icon.ico</iconset>
+    <normaloff>graphics/icon.png</normaloff>graphics/icon.png</iconset>
   </property>
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
@@ -188,7 +188,7 @@
       <x>10</x>
       <y>20</y>
       <width>261</width>
-      <height>321</height>
+      <height>381</height>
      </rect>
     </property>
     <property name="alternatingRowColors">
@@ -218,43 +218,14 @@
     </column>
     <column>
      <property name="text">
-      <string>Duración</string>
+      <string>Tipo</string>
      </property>
     </column>
-   </widget>
-   <widget class="QLabel" name="label_8">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>360</y>
-      <width>261</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;NOTA: &lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Solo&lt;/span&gt; se muestran aquellos periodos configurados con una duración de entre &lt;span style=&quot; text-decoration: underline;&quot;&gt;5 y 7 meses&lt;/span&gt; inclusive&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="Line" name="line_3">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>340</y>
-      <width>261</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
    </widget>
   </widget>
  </widget>
  <resources>
-  <include location="../main.qrc"/>
+  <include location="../graphics/graphics.qrc"/>
  </resources>
  <connections/>
 </ui>

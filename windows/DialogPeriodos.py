@@ -1,3 +1,6 @@
+# Copyright Ramón Vila Ferreres
+# ramonvilafer <at> gmail.com - 2019
+
 import datetime
 import os
 import pickle

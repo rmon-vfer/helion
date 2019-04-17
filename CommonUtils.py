@@ -1,6 +1,5 @@
 # Copyright Ramón Vila Ferreres
 # ramonvilafer <at> gmail.com - 2019
-# Licensed under Qt License Agreement
 
 import os
 import pickle
@@ -49,7 +48,7 @@ class CommonUtils(QtGui.QMessageBox, QtGui.QCalendarWidget, object):
         :param type: Tipo de mensaje, en función del tipo se mostrará un icon u otro, todos 
                      los tipos posibles están en QtGui.QMessageBox.<TIPO_AQUI>
         """
-        
+
         msg = QtGui.QMessageBox()
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("graphics/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)

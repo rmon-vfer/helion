@@ -1,3 +1,6 @@
+# Copyright Ramón Vila Ferreres
+# ramonvilafer <at> gmail.com - 2019
+
 import pickle, sys, os, shutil
 import arrow
 from PyQt4 import QtCore, QtGui

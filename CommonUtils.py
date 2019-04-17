@@ -50,9 +50,7 @@ class CommonUtils(QtGui.QMessageBox, QtGui.QCalendarWidget, object):
         """
 
         msg = QtGui.QMessageBox()
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("graphics/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        msg.setWindowIcon(icon)
+        msg.setWindowIcon(QtGui.QIcon("./graphics/icon.ico"))
         
         msg.setIcon(type)
         msg.setText(text)

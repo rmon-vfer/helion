@@ -28,9 +28,7 @@ class Ui_Dialog(object):
         Dialog.resize(332, 254)
         Dialog.setMinimumSize(QtCore.QSize(332, 254))
         Dialog.setMaximumSize(QtCore.QSize(332, 254))
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8("graphics/icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        Dialog.setWindowIcon(icon)
+        Dialog.setWindowIcon(QtGui.QIcon("./graphics/icon.ico"))
         self.label = QtGui.QLabel(Dialog)
         self.label.setGeometry(QtCore.QRect(10, 10, 81, 21))
         font = QtGui.QFont()
@@ -56,4 +54,4 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(_translate("Dialog", "Acerca", None))
         self.label.setText(_translate("Dialog", "Acerca", None))
-        self.label_2.setText(_translate("Dialog", "<html><head/><body><p><span style=\" font-size:10pt; font-style:italic;\">GGuard 0.0.1 Beta</span></p><p>GGuard es un gestor de guardias para el personal de centros sanitarios</p><p><span style=\" font-weight:600;\">Desarrollado por:</span></p><p>Copyright <span style=\" font-style:italic;\">Ramón Vila Ferreres - </span>(2019)</p><p>&lt;ramonvilafer@gmail.com&gt;</p><p><span style=\" font-weight:600;\">Nota legal:</span></p><p>Incluye software con licencias de código abierto</p></body></html>", None))
+        self.label_2.setText(_translate("Dialog", "<html><head/><body><p><span style=\" font-size:10pt; font-style:italic;\">Helion 0.0.1 Beta</span></p><p>Helion es un gestor de guardias para el personal de centros sanitarios</p><p><span style=\" font-weight:600;\">Desarrollado por:</span></p><p>Copyright <span style=\" font-style:italic;\">Ramón Vila Ferreres - </span>(2019)</p><p>&lt;ramonvilafer@gmail.com&gt;</p><p><span style=\" font-weight:600;\">Nota legal:</span></p><p>Incluye software con licencias de código abierto</p></body></html>", None))

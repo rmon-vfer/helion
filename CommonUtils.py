@@ -223,6 +223,8 @@ class CommonUtils(QtGui.QMessageBox, QtGui.QCalendarWidget, object):
 
     @staticmethod
     def initializeStorage():
+        if not os.path.exists("./saves"):
+            os.makedirs("./saves")
 
         """Prepara el almacenamiento para poder guardar los datos de los usuarios"""
         template = {

@@ -37,9 +37,28 @@ class DialogPeriodos(QtGui.QDialog, Ui_DialogPeriodos, object):
 
         self.botonAnadir.clicked.connect(self.anadirPeriodo)
         self.botonEliminar.clicked.connect(self.eliminarPeriodo)
+        self.botonAplicar.clicked.connect(self.aplicarCambios)
+        self.botonAceptar.clicked.connect(self.closeWindow)
+    
+    def aplicarCambios(self):
+        CommonUtils.showMessageBox("Guardado", "Correcto", 
+        "Los datos se han actualizado correctamente")
 
+        CommonUtils.updateUserData(self.userData)
+        self.haGuardado = True
+        
     def closeWindow(self):
-        self.close()
+        if self.haGuardado == False:
+            respuesta = CommonUtils.showMessageBox("Alerta", "Guardado", 
+            "Has realizado cambios pero no los has guardado, ¿Quieres guardarlos?", 
+            QtGui.QMessageBox.Warning)
+            
+            if respuesta == QtGui.QMessageBox.Ok:
+                self.aplicarCambios()
+            elif respuesta == QtGui.QMessageBox.Cancel:
+                self.close()
+        else:
+            self.close()
 
     def loadData(self):
         self.userData = CommonUtils.getUserData()

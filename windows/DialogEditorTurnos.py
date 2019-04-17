@@ -50,6 +50,7 @@ class DialogEditorTurnos(QtGui.QDialog, Ui_DialogEditorTurnos, object):
         self.botonOk.clicked.connect(self.closeWindow)
         self.botonAplicar.clicked.connect(self.aplicarCambios)
         self.calendarioDia.clicked.connect(self.refrescarTodo)
+        self.eliminarButton.clicked.connect(self.eliminarTurno)
     
     def closeWindow(self):
         if self.haGuardado == False:

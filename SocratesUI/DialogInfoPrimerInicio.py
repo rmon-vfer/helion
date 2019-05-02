@@ -59,6 +59,6 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(_translate("Dialog", "Inicio", None))
         self.label.setText(_translate("Dialog", "Configuración inicial", None))
-        self.label_2.setText(_translate("Dialog", "<html><head/><body><p align=\"justify\">¡Bienvenido/a a GGuard!</p><p align=\"justify\">Para poder utilizar todas las características de GGuard, antes es necesario que añadas los datos de los trabajadores así como las guardias correspondientes a cada uno a la base de datos del programa. Después tendrás que añadir los periodos (mes, semestre o año) en los que quieres que se contabilicen las distintas guardias, de esa manera, lo único que tendrás que hacer es consultar los resúmenes y modificar las guardias del personal.</p></body></html>", None))
+        self.label_2.setText(_translate("Dialog", "<html><head/><body><p align=\"justify\">¡Bienvenido/a a Helion!</p><p align=\"justify\">Para poder utilizar todas las características de Helion, antes es necesario que añadas los datos de los trabajadores así como las guardias correspondientes a cada uno a la base de datos del programa. Después tendrás que añadir los periodos (mes, semestre o año) en los que quieres que se contabilicen las distintas guardias, de esa manera, lo único que tendrás que hacer es consultar los resúmenes y modificar las guardias del personal.</p></body></html>", None))
         self.continuarB.setText(_translate("Dialog", "Continuar", None))
 

@@ -68,15 +68,6 @@ class DialogPeriodos(QtGui.QDialog, Ui_DialogPeriodos, object):
         tipo = self.comboTipoPeriodo.currentText()
         fechaInicio = self.selectInicio.date()
         fechaInicio = CommonUtils.qdateToArrow(fechaInicio)
-
-        if tipo == "Mes":
-            fechaInicio = CommonUtils.siguienteMes(fechaInicio)
-        
-        elif tipo == "Semestre":
-            fechaInicio = CommonUtils.siguienteSemestre(fechaInicio)
-        
-        else:
-            fechaInicio = CommonUtils.siguienteAnyo(fechaInicio)
         
         self.periodos.append({
             "inicio" : f"{CommonUtils.arrowToString(fechaInicio)}",
